@@ -87,7 +87,7 @@ int __io_getchar(void)
 //=============================================================
 //				Foreground: minimal interrupt handle
 //=============================================================
-/*
+
 #define LED_BLINK_PERIOD 250
 
 static volatile bool sw1_pressed = false;
@@ -103,7 +103,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 		break;
 	}
 }
- */
+
 //=============================================================
 //				Clignoter LED 2 et LED 3 avec SW1 et SW2
 //=============================================================
@@ -241,9 +241,10 @@ int main(void)
 	//=============================================================
 	//				Background: the superloop does the work
 	//=============================================================
-	/*
+
 	uint32_t last_tick = 0;
-	 */
+	uint32_t tick = 0;
+
 	//=============================================================
 	//				From encoder to Neopixel
 	//=============================================================
@@ -275,8 +276,8 @@ int main(void)
 		//=============================================================
 		//				Background: the superloop does the work
 		//=============================================================
-		/*
-		uint32_t tick = HAL_GetTick();
+
+		tick = HAL_GetTick();
 		if (last_tick != tick)
 		{
 			last_tick = tick;
@@ -295,7 +296,7 @@ int main(void)
 			sw2_pressed = false;
 			HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 		}
-		 */
+
 
 		//=============================================================
 		//				From encoder to Neopixel
