@@ -19,6 +19,7 @@ typedef struct {
 	bsp_t * bsp;
 
 	menu_t main_menu;
+	menu_t led_menu;
 	menu_t hsv_menu;
 	menu_t *active;
 

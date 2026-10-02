@@ -12,6 +12,7 @@
 static const char *const LED_LABELS[3] = {"LED1", "LED2", "LED3"};
 
 static led_toggle_entry_t led_entries[3];
+static screen_switch_entry_t led_entry;
 static screen_switch_entry_t neopixel_entry;
 
 static hsv_component_entry_t hue_entry;
@@ -23,13 +24,19 @@ void app_init(app_t *app, bsp_t *bsp) {
 	app->bsp = bsp;
 
 	menu_init(&app->main_menu);
+	screen_switch_entry_init(&led_entry, "LED", &app->led_menu);
+	screen_switch_entry_init(&neopixel_entry, "NEOPIXEL", &app->hsv_menu);
+	menu_add_entry(&app->main_menu, &led_entry.super);
+	menu_add_entry(&app->main_menu, &neopixel_entry.super);
+
+	menu_init(&app->led_menu);
 	for (int i = 0; i < 3; i++) {
 		app->led_on[i] = false;
 		led_toggle_entry_init(&led_entries[i], LED_LABELS[i], &app->led_on[i], (uint8_t)i);
-		menu_add_entry(&app->main_menu, &led_entries[i].super);
+		menu_add_entry(&app->led_menu, &led_entries[i].super);
 	}
-	screen_switch_entry_init(&neopixel_entry, "NEOPIXEL", &app->hsv_menu);
-	menu_add_entry(&app->main_menu, &neopixel_entry.super);
+	screen_switch_entry_init(&back_entry, "BACK", &app->main_menu);
+	menu_add_entry(&app->led_menu, &back_entry.super);
 
 	app->hue = 0;
 	app->sat = 255;

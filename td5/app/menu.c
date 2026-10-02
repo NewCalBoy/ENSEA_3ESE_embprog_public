@@ -54,6 +54,10 @@ menu_t *menu_process(menu_t *m, bsp_t *bsp) {
 			m->editing = true;
 			return NULL;
 		}
+		else if (entry->kind == MENU_ENTRY_LED_TOGGLE) {	// Editable
+			m->editing = true;
+			return NULL;
+		}
 		return menu_entry_activate(entry, bsp);
 	}
 
