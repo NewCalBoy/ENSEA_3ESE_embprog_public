@@ -16,13 +16,24 @@
  * explosee), le compteur de clignotements et la garde qui declenche
  * l'explosion sont a construire en seance.
  */
+
+typedef enum {
+	TIME_BOMB_IDLE,
+	TIME_BOMB_ARMED,
+	TIME_BOMB_EXPLOSED,
+}TimeBombStat_t;
+
 typedef struct {
+	TimeBombStat_t state;
+	int blink_count;
+
     bool *led_on;
     uint8_t led_index;
 
     app_timers_t *timers;
     int timer_id;
 } time_bomb_t;
+
 
 void time_bomb_init(time_bomb_t *tb, bool *led_on, uint8_t led_index, app_timers_t *timers, int timer_id);
 
