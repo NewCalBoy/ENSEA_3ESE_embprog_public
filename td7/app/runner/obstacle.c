@@ -6,24 +6,26 @@
  * pour le contrat de chacune). */
 
 void obstacle_init(obstacle_t *o) {
-    (void)o;
+	o->active=false;
+	o->x=0;
+	o->h=0;
+	o->w=0;
 }
 
 void obstacle_spawn(obstacle_t *o, int w, int h) {
-    (void)o;
-    (void)w;
-    (void)h;
+	o->active=true;
+	o->x=127;
+	o->h=h;
+	o->w=w;
 }
 
 void obstacle_update(obstacle_t *o, int speed) {
-    (void)o;
-    (void)speed;
+	o->x-=speed;
 }
 
 void obstacle_draw(const obstacle_t *o, bsp_t *bsp, int ground_y) {
-    (void)o;
-    (void)bsp;
-    (void)ground_y;
+	int top = ground_y - o->h;
+	bsp->oled_fill_rect(bsp, o->x, top, o->w, o->h, true);
 }
 
 /* TODO etape 3 : garde de collision. */

@@ -42,6 +42,8 @@ typedef struct {
     int ticks;  /* ticks ecoules depuis le debut de la partie */
     uint32_t rng; /* etat du generateur pseudo-aleatoire (voir runner_rand) */
 
+    obstacle_t obs;
+
     uint32_t next_tick_ms; /* echeance du prochain tick (sans derive) */
 
     app_timers_t *timers;

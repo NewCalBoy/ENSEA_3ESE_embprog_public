@@ -23,8 +23,16 @@
  */
 
 #define DINO_X 12
-#define DINO_W 8
-#define DINO_H 10
+#define DINO_W 9
+#define DINO_H 15
+#define EYE_W 3
+#define EYE_H 2
+#define TAIL_W 4
+#define TAIL_H 3
+#define LEG_X 1
+#define LEG_W 2
+#define LEG_H 3
+
 
 typedef enum {
     DINO_RUNNING,

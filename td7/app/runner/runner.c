@@ -2,6 +2,7 @@
 
 #define RUNNER_TICK_MS 40 /* 25 images par seconde */
 #define GROUND_Y 56
+#define SPEED 3
 
 /* Generateur pseudo-aleatoire (LCG classique, Numerical Recipes) :
  * suffisant pour un jeu. Fourni, a ne pas modifier. */
@@ -12,6 +13,7 @@ uint32_t runner_rand(runner_t *r, uint32_t modulo) {
 
 static void runner_reset_game(runner_t *r, uint32_t seed) {
     dino_init(&r->dino);
+    obstacle_init(&r->obs);
     r->ticks = 0;
     r->rng = seed;
     /* TODO : remettre a zero tout ce que vous ajouterez a runner_t
@@ -36,6 +38,12 @@ void runner_enter(runner_t *r, bsp_t *bsp) {
 static void runner_tick(runner_t *r) {
     r->ticks++;
     dino_update(&r->dino);
+    obstacle_spawn(&r->obs,4,12);
+    if (&r->obs.active)
+    {
+    	obstacle_update(&r->obs,SPEED);
+    }
+
 
     /* TODO etape 2 : faire defiler l'obstacle (et le faire reapparaitre).
      * TODO etape 3 : detecter la collision -> GAME_OVER.
@@ -97,6 +105,7 @@ void runner_draw(const runner_t *r, bsp_t *bsp) {
 
     bsp->oled_fill_rect(bsp, 0, GROUND_Y, 128, 1, true);
     dino_draw(&r->dino, bsp, GROUND_Y, r->ticks);
+    obstacle_draw(&r->obs, bsp, GROUND_Y);
 
     /* TODO : dessiner obstacles, score, ecran GAME OVER... */
 
