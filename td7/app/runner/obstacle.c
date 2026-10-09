@@ -21,6 +21,9 @@ void obstacle_spawn(obstacle_t *o, int w, int h) {
 
 void obstacle_update(obstacle_t *o, int speed) {
 	o->x-=speed;
+	if (o->x + o->w <= 0) {
+		o->active = false;
+	}
 }
 
 void obstacle_draw(const obstacle_t *o, bsp_t *bsp, int ground_y) {
@@ -30,7 +33,17 @@ void obstacle_draw(const obstacle_t *o, bsp_t *bsp, int ground_y) {
 
 /* TODO etape 3 : garde de collision. */
 bool obstacle_hits_dino(const obstacle_t *o, const dino_t *d) {
-    (void)o;
-    (void)d;
-    return false;
+	if (((o->x>DINO_X) & (o->x<DINO_X+DINO_W)) || (((o->x+o->w)>DINO_X) & ((o->x+o->w)<DINO_X+DINO_W)))
+	{
+		if (o->h>d->height)
+		{
+			if (o->active)
+			{
+				return true;
+			}
+		}
+	}
+	(void)o;
+	(void)d;
+	return false;
 }

@@ -32,6 +32,7 @@
 typedef enum {
     RUNNER_READY,
     RUNNER_PLAYING,
+	RUNNER_GAME_OVER,
     /* TODO etape 3 : RUNNER_GAME_OVER */
 } runner_state_t;
 
