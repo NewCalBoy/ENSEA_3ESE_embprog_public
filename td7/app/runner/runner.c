@@ -2,7 +2,7 @@
 
 #define RUNNER_TICK_MS 40 /* 25 images par seconde */
 #define GROUND_Y 56
-#define SPEED 3
+#define SPEED 5
 
 /* Generateur pseudo-aleatoire (LCG classique, Numerical Recipes) :
  * suffisant pour un jeu. Fourni, a ne pas modifier. */
