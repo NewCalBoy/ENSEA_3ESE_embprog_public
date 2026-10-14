@@ -18,11 +18,7 @@ set(MX_Include_Dirs
 )
 
 # STM32CubeMX generated application sources
-<<<<<<< HEAD
 set(MX_Application_Src
-=======
-set(MX_Application_Src
->>>>>>> bcd90949ea5e4b3268e87e895d2500447dd5b79b
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/main.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/gpio.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/dma.c
@@ -34,19 +30,11 @@ set(MX_Application_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/stm32g4xx_hal_msp.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/sysmem.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/syscalls.c
-<<<<<<< HEAD
     ${CMAKE_CURRENT_SOURCE_DIR}/../../startup_stm32g431xx.s
 )
 
 # STM32 HAL/LL Drivers
 set(STM32_Drivers_Src
-=======
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../startup_stm32g431xx.s
-)
-
-# STM32 HAL/LL Drivers
-set(STM32_Drivers_Src
->>>>>>> bcd90949ea5e4b3268e87e895d2500447dd5b79b
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/system_stm32g4xx.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c_ex.c
@@ -68,13 +56,8 @@ set(STM32_Drivers_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.c
-<<<<<<< HEAD
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.c
 )
-=======
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.c
-)
->>>>>>> bcd90949ea5e4b3268e87e895d2500447dd5b79b
 
 # Drivers Midllewares
 
