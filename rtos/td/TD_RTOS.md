@@ -227,3 +227,65 @@ void task2(void * p) {
     }
 }
 ```
+___
+## Cours 4 : Timers
+### Part 1 : Principle
+__1. What is a software timer? How does it differ from a hardware timer (TIM2, TIM3...)?__  
+
+```
+A software timer allows a function to be executed at a set time in the future. The function executed by the timer is called the timer's callback function.
+```  
+
+__2. In which context does the callback run? What is it allowed to do?__  
+```
+The timer's callback function is executed when the timer's period expires.
+```
+
+__3. When a task calls ```xTimerStart```, does that task start the timer itself? How does the information reach the timer task?__  
+```
+xTimerStart() starts a timer that was previously created using the xTimerCreate(). 
+```
+
+__4. What happens if that path is full? What is the ```xTicksToWait``` parameter of the API for?__  
+```
+
+```
+
+__5. Does the timer task run all the time? Does it use CPU when no timer expires?__  
+```
+
+```
+
+__6. What are ```configUSETIMERS```, ```configTIMERTASKPRIORITY```,
+ ```configTIMERQUEUELENGTH```, ```configTIMERTASKSTACKDEPTH``` for? Which priority would you give the timer task?__  
+```
+
+```
+
+__7. One-shot or auto-reload: what is the difference?__  
+
+```
+
+```
+
+### Part 2 : Principle
+
+__8. What does ```xTimerCreate``` do? What does it return? Where is the timer allocated? Does it start when created?__
+```
+
+```
+
+__9. One callback shared by several timers: how do you know which one expired?__
+```
+
+```
+
+__10. What is the difference between ```xTimerStart```, ```xTimerReset``` and ```xTimerChangePeriod```?__
+```
+
+```
+
+__11. Can you start a timer from an interrupt? Before ```vTaskStartScheduler()```?__
+```
+
+```
