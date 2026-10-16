@@ -31,7 +31,18 @@ void init(void* param) {
 
 __1. Donner les 12 premières lignes qui s'affichent à l'écran__
 ```
-
+tache 0, j = 0, x = 1 Creation de la tache 0 tache 1, 
+j = 0, x = 2 Creation de la tache 1 tache 2, 
+j = 0, x = 3 Creation de la tache 2 tache 3,
+j = 0, x = 4 Creation de la tache 3 tache 3, 
+j = 1, x = 5 tache 2, 
+j = 1, x = 6 tache 1, 
+j = 1, x = 7 tache 0, 
+j = 1, x = 8 tache 3, 
+j = 2, x = 9 tache 2, 
+j = 2, x = 10 tache 1, 
+j = 2, x = 11 tache 0, 
+j = 2, x = 12,
 ```
 __2. La fonction codeTache est-elle réentrante ?__
 ```
@@ -105,10 +116,114 @@ t2 out
 ___
 
 ## 2/ Sémaphores
-```c
 
+__1. À l’aide de la fonction vTaskDelay, proposez une modification pour que les timings soient
+respectés.__
+```c
+/*Question 1*/
+
+void task1(void * p) {
+    for(;;) {
+        process1(); // dure 4ms
+        vTaskDelay(4);
+    }
+}
+void task2(void * p) {
+    for(;;) {
+        process2(); // dure 2ms
+        vTaskDelay(8);
+    }
+}
+```
+__2. Tracer le chronogramme. Est-ce satisfaisant ?__  
+__5. Tracer le chronogramme.__  
+__8. Tracer le chronogramme.__  
+![alt text](td_papier_2.png)
+
+__3. À l’aide d’une troisième tâche taskSync et de sémaphores binaires, proposez une meilleure
+solution.__
+```c
+/*Question 3*/
+
+void taskSync (void * p) {
+    int i = 0;
+    for (;;) {
+        if (i % 8 == 0) {
+            // Débloquer t1 (donner sem1) toutes les 8ms
+            xSemaphoreGive(sem1);
+        }
+        if (i % 10 == 0) {
+            // Débloquer t2 (donner sem2) toutes les 10ms
+            xSemaphoreGive(sem2);
+        }
+
+        i++;
+        vTaskDelay(1);
+    }
+}
+
+void task1(void * p) {
+    for(;;) {
+        // Débloquer toutes les 8ms
+        xSemaphoreTake(sem1, portMAX_DELAY);
+        process1(); // dure 4ms
+    }
+}
+void task2(void * p) {
+    for(;;) {
+        // Débloquer toutes les 10ms
+        xSemaphoreTake(sem2, portMAX_DELAY);
+        process2(); // dure 2ms
+    }
+}
 ```
 __4. Quelle doit être la priorité de taskSync ?__
 ```
-Minimum 3 car doit être prioritaire
+Minimum 3 car doit être prioritaire.
+```
+
+__6. Imaginonsmaintenantquelesfonctionsprocess1()etprocess2()separtagentuneressources
+critique. Elles ne doivent donc pas se préempter mutuellement.__  
+
+__7. Proposer une solution à l’aide d’un sémaphore mutex.__
+```c
+/*Question 7*/
+
+void taskSync (void * p) {
+    int i = 0;
+    for (;;) {
+        if (i % 8 == 0) {
+            // Débloquer t1 (donner sem1) toutes les 8ms
+            xSemaphoreGive(sem1);
+        }
+        if (i % 10 == 0) {
+            // Débloquer t2 (donner sem2) toutes les 10ms
+            xSemaphoreGive(sem2);
+        }
+
+        i++;
+        vTaskDelay(1);
+    }
+}
+
+void task1(void * p) {
+    for(;;) {
+        // Débloquer toutes les 8ms
+        xSemaphoreTake(sem1, portMAX_DELAY);
+
+        xSemaphoreTake(mutex, portMAX_DELAY);
+        process1(); // dure 4ms
+        xSemaphoreGive(mutex);
+    }
+}
+void task2(void * p) {
+    for(;;) {
+        // Débloquer toutes les 10ms
+        xSemaphoreTake(sem2, portMAX_DELAY);
+
+        xSemaphoreTake(mutex, portMAX_DELAY);
+        process2(); // dure 2ms
+        xSemaphoreGive(mutex);
+    }
+}
 ```
