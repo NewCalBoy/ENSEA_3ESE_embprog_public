@@ -33,9 +33,18 @@ static void stats_task(void *unused) {
 
 		/* TODO 1 -- Le tas : taille, libre, minimum jamais atteint
 		 *   configTOTAL_HEAP_SIZE, xPortGetFreeHeapSize(), xPortGetMinimumEverFreeHeapSize() */
+		printf("configTOTAL_HEAP_SIZE = %d\r\n",configTOTAL_HEAP_SIZE);
+		printf("xPortGetFreeHeapSize = %d\r\n",xPortGetFreeHeapSize());
+		printf("xPortGetMinimumEverFreeHeapSize = %d\r\n",xPortGetMinimumEverFreeHeapSize());
 
 		/* TODO 2 -- Les piles : high water mark de chaque tâche
 		 *   uxTaskGetStackHighWaterMark(), puis vTaskList() */
+		UBaseType_t free_words = uxTaskGetStackHighWaterMark(NULL); /* NULL: the calling task */
+		printf("free_words = %ld\r\n",free_words);
+		static char buffer[512];
+		printf("\r\nNAME\t\tSTATE\tPRIO\tSTACK\tNUM\r\n");
+		vTaskList(buffer);
+		printf("%s", buffer);
 
 		/* TODO 3 -- Le temps CPU
 		 *   vTaskGetRunTimeStats() */
@@ -47,6 +56,14 @@ void stats_init(unsigned int task_priority) {
 			NULL, task_priority, NULL);
 	configASSERT(ok == pdPASS);
 }
+
+//void vApplicationStackOverflowHook(TaskHandle_t xTask, char*pcTaskName) {
+//	(void)xTask;
+//	(void)pcTaskName; /*whichtaskoverflowed*/
+//
+//	for(;;){}
+//	/*putabreakpointhere*/
+//}
 
 /* -------------------------------------------------------------------------
  * Compteur de temps pour les statistiques d'exécution (fourni).

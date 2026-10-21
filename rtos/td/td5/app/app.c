@@ -125,7 +125,7 @@ void app_init(unsigned int task_priority) {
 
 	BaseType_t ok = xTaskCreate(app_task, "APP", APP_TASK_STACK_DEPTH,
 			NULL, task_priority, &app.task);
-	configASSERT(ok == pdPASS);
+	configASSERT(ok == pdPASS); //Arrete le processeur en cas d'erreur
 }
 
 /* Timeout 0 : on ne bloque jamais. Les callbacks des timers postent ici

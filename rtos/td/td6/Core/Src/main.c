@@ -28,6 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include <stdlib.h>
 #include "shell.h"
 /* USER CODE END Includes */
 
@@ -65,12 +66,29 @@ int _write(int file, char *ptr, int len) {
 	return len;
 }
 
-int bidon (int argc, char ** argv) {
-	printf("Bongeourre-han, je suis une fonction nulle-han\r\n");
-	printf("TODO: Rendez-moi moins nulle, faites moi afficher mes paramètres !\r\n");
-	printf("Et après ça, vous ajouterez une fonction d'addition\r\n");
-	printf("Aller, hophophop\r\n");
+int bidon (int argc, char ** argv)
+{
+	printf("Bonjour, je suis une fonction nulle\r\n");
 
+	for (int i=0; i<argc;i++)
+	{
+		printf("argv[%d]=%s\r\n",i,argv[i]);
+	}
+
+	return 0;
+}
+
+int add (int argc, char ** argv)
+{
+	int acc=0;
+	for (int i=0; i<argc;i++)
+	{
+		//Convertir la chaine de caractère en entier
+		int num=atoi(argv[i]);
+		//Ajouter le nombre à acc
+		acc+=num;
+	}
+	printf("%d\r\n",acc);
 	return 0;
 }
 /* USER CODE END 0 */
@@ -113,6 +131,7 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 	shell_init();
 	shell_add('f', bidon, "Une fonction bidon");
+	shell_add('a', add, "Addition");
 	shell_run();
 
 	/* USER CODE END 2 */
